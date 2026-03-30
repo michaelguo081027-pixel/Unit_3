@@ -7,7 +7,11 @@ Mar 12
 color red = color(255, 0, 0);
 color lime = color(0, 255, 0);
 color blue = color(0, 0, 255);
+color yellow = color(255, 255, 0);
+color magenta = color(255, 0, 255);
+color cyan = color(0, 255, 255);
 color white = color(255);
+color black = color(0);
 color selected;
 
 void setup(){
