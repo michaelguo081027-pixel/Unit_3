@@ -23,25 +23,25 @@ void draw(){
   background(silver);
   
   //button
-  tactile(100, 100, 50);
+  tactile(50, 150, 50, 150);
   fill(yellow);
-  circle(100, 100, 100);
+  square(50, 50, 100);
   
-  tactile(100, 300, 50);
+  tactile(50, 150, 250, 350);
   fill(magenta);
-  circle(100, 300, 100);
+  square(50, 250, 100);
   
-  tactile(100, 500, 50);
+  tactile(50, 150, 450, 550);
   fill(cyan);
-  circle(100, 500, 100);
+  square(50, 450, 100);
   //indicator
   stroke(black);
   fill(selected);
   square(300, 100, 400);
 }
 
-void tactile(int x, int y, int r){
-  if(dist(x,y,mouseX,mouseY)<r){
+void tactile(int x1, int x2, int y1, int y2){
+  if(mouseX>x1 && mouseX<x2 && mouseY>y1 && mouseY<y2){
     stroke(white);
   } else {
     stroke(black);
@@ -49,13 +49,13 @@ void tactile(int x, int y, int r){
 }  
 
 void mouseReleased(){
-  if(dist(100,100,mouseX,mouseY)<50){
+  if(mouseX>50 && mouseX<150 && mouseY>50 && mouseY<150){
     selected=yellow;
   }
-  if(dist(100,300,mouseX,mouseY)<50){
+  if(mouseX>50 && mouseX<150 && mouseY>250 && mouseY<350){
     selected=magenta;
   }
-  if(dist(100,500,mouseX,mouseY)<50){
+  if(mouseX>50 && mouseX<150 && mouseY>450 && mouseY<550){
     selected=cyan;
   }
 }
