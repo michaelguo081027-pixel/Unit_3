@@ -15,19 +15,23 @@ color yellow = #FFFF00;
 color magenta = #FF00FF;
 color cyan= #00FFFF;
 color selected;
+float x;
+float t;
 
 void setup(){
   size(1200, 800);
-  strokeWeight(5);
-  stroke(black);
+  background(white);
   selected=black;
+  x=490;
+  t=2;
 }
 
 void draw(){
-  background(silver);
-  fill(grey);
+  strokeWeight(5);
+  stroke(black);
+  fill(silver);
   rect(0, 0, 1200, 200);
-  //button
+  //colour
   tactile(850, 50, 25);
   fill(black);
   circle(850, 50, 50);
@@ -60,9 +64,17 @@ void draw(){
   fill(cyan);
   circle(1150, 125, 50);
   //indicator
-  stroke(black);
+  stroke(grey);
   fill(selected);
   square(700, 50, 75);
+  //slider
+  stroke(black);
+  line(450, 50, 650, 50);
+  fill(grey);
+  circle(x, 50, 30);
+  strokeWeight(t);
+  line(500, 100, 600, 100);
+  strokeWeight(5);
 }
 
 void tactile(int x, int y, int r){
@@ -72,6 +84,15 @@ void tactile(int x, int y, int r){
     stroke(black);
   }
 }  
+
+void mouseDragged(){
+  if (mouseY > 200){
+    stroke(selected);
+    strokeWeight(t);
+    line(pmouseX, pmouseY, mouseX, mouseY);
+  }
+  slider();
+}
 
 void mouseReleased(){
   if(dist(850,50,mouseX,mouseY)<25){
@@ -98,4 +119,13 @@ void mouseReleased(){
   if(dist(1150,125,mouseX,mouseY)<25){
     selected=cyan;
   }
+  slider();
+}
+
+void slider() {
+  if (mouseX > 450 && mouseX <650 && mouseY > 35 && mouseY < 65){
+    x=mouseX;
+  }
+  
+  t = map(x, 450, 650, 0, 10);
 }
