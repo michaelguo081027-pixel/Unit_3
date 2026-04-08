@@ -4,6 +4,12 @@ Michael Guo
 Apr 7
 */
 
+PImage smile;
+PImage newfile;
+PImage loadfile;
+PImage savefile;
+boolean stampOn;
+
 color white = #FFFFFF;
 color black = #000000;
 color silver = #C0C0C0;
@@ -13,17 +19,21 @@ color lime = #00FF00;
 color blue = #0000FF;
 color yellow = #FFFF00;
 color magenta = #FF00FF;
-color cyan= #00FFFF;
+color cyan = #00FFFF;
+color orange = #FFA500;
 color selected;
 float x;
 float t;
 
 void setup(){
   size(1200, 800);
-  background(white);
+  background(grey);
+  smile = loadImage("Smile.png");
+  stampOn = false;
   selected=black;
   x=490;
   t=2;
+  canva();
 }
 
 void draw(){
@@ -75,6 +85,17 @@ void draw(){
   strokeWeight(t);
   line(500, 100, 600, 100);
   strokeWeight(5);
+  //buttons
+  noFill();
+  strokeWeight(2);
+  rect(10, 10, 75, 125);
+  rect(110, 10, 75, 125);
+  rect(210, 10, 75, 125);
+  //stamp
+  onoff(300, 25, 100, 100);
+  show();
+  rect(300, 25, 100, 100);
+  image(smile, 300, 25, 100, 100);
 }
 
 void tactile(int x, int y, int r){
@@ -86,10 +107,14 @@ void tactile(int x, int y, int r){
 }  
 
 void mouseDragged(){
-  if (mouseY > 200){
-    stroke(selected);
-    strokeWeight(t);
-    line(pmouseX, pmouseY, mouseX, mouseY);
+  if (mouseX > 25 && mouseX < 1175 && mouseY > 225 && mouseY < 775){
+    if (stampOn == false) {
+      stroke(selected);
+      strokeWeight(t);
+      line(pmouseX, pmouseY, mouseX, mouseY);
+    } else {
+      image(smile, mouseX, mouseY, 100, 100);
+    }
   }
   slider();
 }
@@ -120,6 +145,12 @@ void mouseReleased(){
     selected=cyan;
   }
   slider();
+  if (mouseX > 300 && mouseX < 400 && mouseY >25 && mouseY < 125){
+    stampOn = !stampOn;
+  }
+  if (mouseX > 10 && mouseX < 85 && mouseY > 10 && mouseY < 135){
+    canva();
+  }
 }
 
 void slider() {
@@ -128,4 +159,28 @@ void slider() {
   }
   
   t = map(x, 450, 650, 0, 10);
+}
+
+void onoff(int x, int y, int w, int h){
+  if(mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h){
+    fill(orange);
+  } else {
+    fill(white);
+  }
+}
+
+void show(){
+  if (stampOn==true){
+    stroke(orange);
+    strokeWeight(5);
+  } else {
+    stroke(black);
+    strokeWeight(1);
+  }
+}
+
+void canva(){
+  noStroke();
+  fill(white);
+  rect(25, 225, 1150, 550);
 }
