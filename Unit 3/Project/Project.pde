@@ -4,10 +4,11 @@ Michael Guo
 Apr 7
 */
 
-PImage smile;
+PImage stamp;
 PImage newfile;
-PImage loadfile;
+PImage openfile;
 PImage savefile;
+
 boolean stampOn;
 
 color white = #FFFFFF;
@@ -22,13 +23,17 @@ color magenta = #FF00FF;
 color cyan = #00FFFF;
 color orange = #FFA500;
 color selected;
+
 float x;
 float t;
 
 void setup(){
   size(1200, 800);
   background(grey);
-  smile = loadImage("Smile.png");
+  stamp = loadImage("Stamp.png");
+  newfile = loadImage("New.png");
+  openfile = loadImage("Open.png");
+  savefile = loadImage("Save.png");
   stampOn = false;
   selected=black;
   x=490;
@@ -41,6 +46,17 @@ void draw(){
   stroke(black);
   fill(silver);
   rect(0, 0, 1200, 200);
+  fill(black);
+  textSize(20);
+  text("File", 150, 175);
+  text("Stamp Tool", 330, 175);
+  text("Thickness", 510, 175);
+  text("Colours", 900, 175);
+  strokeWeight(2);
+  line(310, 5, 310, 195);
+  line(435, 5, 435, 195);
+  line(675, 5, 675, 195);
+  strokeWeight(5);
   //colour
   tactile(850, 50, 25);
   fill(black);
@@ -86,16 +102,28 @@ void draw(){
   line(500, 100, 600, 100);
   strokeWeight(5);
   //buttons
-  noFill();
-  strokeWeight(2);
+  select(10, 10, 75, 125);
+  strokeWeight(1);
+  textSize(15);
   rect(10, 10, 75, 125);
+  fill(black);
+  text("New", 32.5, 110);
+  image(newfile, 10, 10, 75, 75);
+  select(110, 10, 75, 125);
   rect(110, 10, 75, 125);
+  fill(black);
+  text("Open", 130, 110);
+  image(openfile, 110, 10, 75, 75);
+  select(210, 10, 75, 125);
   rect(210, 10, 75, 125);
+  fill(black);
+  text("Save", 230, 110);
+  image(savefile, 210, 10, 75, 75);
   //stamp
-  onoff(300, 25, 100, 100);
-  show();
-  rect(300, 25, 100, 100);
-  image(smile, 300, 25, 100, 100);
+  select(325, 25, 100, 100);
+  onoff();
+  rect(325, 25, 100, 100);
+  image(stamp, 325, 25, 100, 100);
 }
 
 void tactile(int x, int y, int r){
@@ -113,7 +141,7 @@ void mouseDragged(){
       strokeWeight(t);
       line(pmouseX, pmouseY, mouseX, mouseY);
     } else {
-      image(smile, mouseX, mouseY, 100, 100);
+      image(stamp, mouseX, mouseY, 100, 100);
     }
   }
   slider();
@@ -151,6 +179,12 @@ void mouseReleased(){
   if (mouseX > 10 && mouseX < 85 && mouseY > 10 && mouseY < 135){
     canva();
   }
+  if (mouseX > 110 && mouseX < 185 && mouseY > 10 && mouseY < 135){
+    selectInput("Open", "openImage");
+  }
+  if (mouseX > 210 && mouseX < 285 && mouseY > 10 && mouseY < 135){
+    selectOutput("Save as", "saveImage");
+  }
 }
 
 void slider() {
@@ -161,7 +195,7 @@ void slider() {
   t = map(x, 450, 650, 0, 10);
 }
 
-void onoff(int x, int y, int w, int h){
+void select(int x, int y, int w, int h){
   if(mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h){
     fill(orange);
   } else {
@@ -169,7 +203,7 @@ void onoff(int x, int y, int w, int h){
   }
 }
 
-void show(){
+void onoff(){
   if (stampOn==true){
     stroke(orange);
     strokeWeight(5);
@@ -183,4 +217,22 @@ void canva(){
   noStroke();
   fill(white);
   rect(25, 225, 1150, 550);
+}
+
+void openImage(File f){
+  if(f !=null){
+    int n = 0;
+    while(n<10){
+      PImage pic = loadImage(f.getPath());
+      image(pic, 25, 225);
+      n=n+1;
+    }
+  }
+}
+
+void saveImage(File f){
+  if (f !=null){
+    PImage canva = get(25, 225, 1150, 550);
+    canva.save(f.getAbsolutePath());
+  }
 }
