@@ -9,7 +9,8 @@ PImage newfile;
 PImage openfile;
 PImage savefile;
 
-boolean stampOn;
+boolean stamp1On;
+boolean stamp2On;
 
 color white = #FFFFFF;
 color black = #000000;
@@ -34,7 +35,8 @@ void setup(){
   newfile = loadImage("New.png");
   openfile = loadImage("Open.png");
   savefile = loadImage("Save.png");
-  stampOn = false;
+  stamp1On = false;
+  stamp2On = false;
   selected=black;
   x=490;
   t=2;
@@ -48,10 +50,10 @@ void draw(){
   rect(0, 0, 1200, 200);
   fill(black);
   textSize(20);
-  text("File", 150, 175);
-  text("Stamp Tool", 330, 175);
-  text("Thickness", 510, 175);
-  text("Colours", 900, 175);
+  text("File", 150, 190);
+  text("Stamp Tool", 330, 190);
+  text("Thickness", 510, 190);
+  text("Colours", 900, 190);
   strokeWeight(2);
   line(310, 5, 310, 195);
   line(435, 5, 435, 195);
@@ -117,13 +119,17 @@ void draw(){
   select(210, 10, 75, 125);
   rect(210, 10, 75, 125);
   fill(black);
-  text("Save", 230, 110);
+  text("Save As", 225, 110);
   image(savefile, 210, 10, 75, 75);
   //stamp
-  select(325, 25, 100, 100);
-  onoff();
-  rect(325, 25, 100, 100);
-  image(stamp, 325, 25, 100, 100);
+  select(335, 10, 75, 75);
+  onoff1();
+  rect(335, 10, 75, 75);
+  image(stamp, 335, 10, 75, 75);
+  select(335, 90, 75, 75);
+  onoff2();
+  rect(335, 90, 75, 75);
+  image(stamp, 335, 90, 75, 75);
 }
 
 void tactile(int x, int y, int r){
@@ -136,11 +142,15 @@ void tactile(int x, int y, int r){
 
 void mouseDragged(){
   if (mouseX > 25 && mouseX < 1175 && mouseY > 225 && mouseY < 775){
-    if (stampOn == false) {
+    if (stamp1On == false && stamp2On == false) {
       stroke(selected);
       strokeWeight(t);
       line(pmouseX, pmouseY, mouseX, mouseY);
-    } else {
+    } 
+    if (stamp1On == true && stamp2On == false){
+      image(stamp, mouseX, mouseY, 100, 100);
+    }
+    if (stamp1On == false && stamp2On == true){
       image(stamp, mouseX, mouseY, 100, 100);
     }
   }
@@ -173,8 +183,21 @@ void mouseReleased(){
     selected=cyan;
   }
   slider();
-  if (mouseX > 300 && mouseX < 400 && mouseY >25 && mouseY < 125){
-    stampOn = !stampOn;
+  if (mouseX > 330 && mouseX < 405 && mouseY >10 && mouseY < 85){
+    if(stamp2On==false){
+      stamp1On = !stamp1On;
+    } else{
+      stamp1On = !stamp1On;
+      stamp2On = !stamp2On;
+    }
+  }
+  if (mouseX > 330 && mouseX < 405 && mouseY >90 && mouseY < 165){
+    if(stamp1On==false){
+      stamp2On = !stamp2On;
+    } else{
+      stamp1On = !stamp1On;
+      stamp2On = !stamp2On;
+    }
   }
   if (mouseX > 10 && mouseX < 85 && mouseY > 10 && mouseY < 135){
     canva();
@@ -203,10 +226,22 @@ void select(int x, int y, int w, int h){
   }
 }
 
-void onoff(){
-  if (stampOn==true){
+void onoff1(){
+  if (stamp1On==true){
     stroke(orange);
     strokeWeight(5);
+    //stamp2On=false;
+  } else {
+    stroke(black);
+    strokeWeight(1);
+  }
+}
+
+void onoff2(){
+  if (stamp2On==true){
+    stroke(orange);
+    strokeWeight(5);
+    //stamp1On=false;
   } else {
     stroke(black);
     strokeWeight(1);
