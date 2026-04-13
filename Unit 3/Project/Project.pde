@@ -4,7 +4,8 @@ Michael Guo
 Apr 7
 */
 
-PImage stamp;
+PImage sleepy;
+PImage smile;
 PImage newfile;
 PImage openfile;
 PImage savefile;
@@ -31,7 +32,8 @@ float t;
 void setup(){
   size(1200, 800);
   background(grey);
-  stamp = loadImage("Stamp.png");
+  sleepy = loadImage("Sleepy.png");
+  smile = loadImage("Smile.png");
   newfile = loadImage("New.png");
   openfile = loadImage("Open.png");
   savefile = loadImage("Save.png");
@@ -44,6 +46,7 @@ void setup(){
 }
 
 void draw(){
+  //setup
   strokeWeight(5);
   stroke(black);
   fill(silver);
@@ -125,20 +128,12 @@ void draw(){
   select(335, 10, 75, 75);
   onoff1();
   rect(335, 10, 75, 75);
-  image(stamp, 335, 10, 75, 75);
+  image(sleepy, 335, 10, 75, 75);
   select(335, 90, 75, 75);
   onoff2();
   rect(335, 90, 75, 75);
-  image(stamp, 335, 90, 75, 75);
+  image(smile, 335, 90, 75, 75);
 }
-
-void tactile(int x, int y, int r){
-  if(dist(x,y,mouseX,mouseY)<r){
-    stroke(white);
-  } else {
-    stroke(black);
-  }
-}  
 
 void mouseDragged(){
   if (mouseX > 25 && mouseX < 1175 && mouseY > 225 && mouseY < 775){
@@ -148,10 +143,10 @@ void mouseDragged(){
       line(pmouseX, pmouseY, mouseX, mouseY);
     } 
     if (stamp1On == true && stamp2On == false){
-      image(stamp, mouseX, mouseY, 100, 100);
+      image(sleepy, mouseX, mouseY, 100, 100);
     }
     if (stamp1On == false && stamp2On == true){
-      image(stamp, mouseX, mouseY, 100, 100);
+      image(smile, mouseX, mouseY, 100, 100);
     }
   }
   slider();
@@ -210,6 +205,14 @@ void mouseReleased(){
   }
 }
 
+void tactile(int x, int y, int r){
+  if(dist(x,y,mouseX,mouseY)<r){
+    stroke(white);
+  } else {
+    stroke(black);
+  }
+}
+
 void slider() {
   if (mouseX > 450 && mouseX <650 && mouseY > 35 && mouseY < 65){
     x=mouseX;
@@ -230,7 +233,6 @@ void onoff1(){
   if (stamp1On==true){
     stroke(orange);
     strokeWeight(5);
-    //stamp2On=false;
   } else {
     stroke(black);
     strokeWeight(1);
@@ -241,7 +243,6 @@ void onoff2(){
   if (stamp2On==true){
     stroke(orange);
     strokeWeight(5);
-    //stamp1On=false;
   } else {
     stroke(black);
     strokeWeight(1);
