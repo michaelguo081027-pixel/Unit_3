@@ -5,7 +5,7 @@ Apr 7
 */
 
 PImage sleeping;
-PImage LOL;
+PImage lol;
 PImage newfile;
 PImage openfile;
 PImage savefile;
@@ -37,7 +37,7 @@ void setup(){
   surface.setIcon(icon);
   background(grey);
   sleeping = loadImage("Sleeping.png");
-  LOL = loadImage("LOL.png");
+  lol = loadImage("LOL.png");
   newfile = loadImage("New.png");
   openfile = loadImage("Open.png");
   savefile = loadImage("Save.png");
@@ -138,7 +138,7 @@ void draw(){
   select(335, 90, 75, 75);
   onoff2();
   rect(335, 90, 75, 75);
-  image(LOL, 335, 90, 75, 75);
+  image(lol, 335, 90, 75, 75);
 }
 
 void mouseDragged(){
@@ -159,7 +159,7 @@ void mouseDragged(){
       pushMatrix();
       translate(mouseX, mouseY);
       scale(t/4);
-      image(LOL, -50, -50, 100, 100);
+      image(lol, -50, -50, 100, 100);
       popMatrix();
     }
   }
