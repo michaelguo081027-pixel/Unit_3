@@ -4,11 +4,12 @@ Michael Guo
 Apr 7
 */
 
-PImage sleepy;
-PImage smile;
+PImage sleeping;
+PImage LOL;
 PImage newfile;
 PImage openfile;
 PImage savefile;
+PImage icon;
 
 boolean stamp1On;
 boolean stamp2On;
@@ -31,9 +32,12 @@ float t;
 
 void setup(){
   size(1200, 800);
+  surface.setTitle("Paint7XP");
+  icon= loadImage("Icon.jpg");
+  surface.setIcon(icon);
   background(grey);
-  sleepy = loadImage("Sleepy.png");
-  smile = loadImage("Smile.png");
+  sleeping = loadImage("Sleeping.png");
+  LOL = loadImage("LOL.png");
   newfile = loadImage("New.png");
   openfile = loadImage("Open.png");
   savefile = loadImage("Save.png");
@@ -57,6 +61,8 @@ void draw(){
   text("Stamp Tool", 330, 190);
   text("Thickness", 510, 190);
   text("Colours", 900, 190);
+  textSize(15);
+  text("Please add file extensions for saving your work!", 10, 165);
   strokeWeight(2);
   line(310, 5, 310, 195);
   line(435, 5, 435, 195);
@@ -128,11 +134,11 @@ void draw(){
   select(335, 10, 75, 75);
   onoff1();
   rect(335, 10, 75, 75);
-  image(sleepy, 335, 10, 75, 75);
+  image(sleeping, 335, 10, 75, 75);
   select(335, 90, 75, 75);
   onoff2();
   rect(335, 90, 75, 75);
-  image(smile, 335, 90, 75, 75);
+  image(LOL, 335, 90, 75, 75);
 }
 
 void mouseDragged(){
@@ -143,10 +149,18 @@ void mouseDragged(){
       line(pmouseX, pmouseY, mouseX, mouseY);
     } 
     if (stamp1On == true && stamp2On == false){
-      image(sleepy, mouseX, mouseY, 100, 100);
+      pushMatrix();
+      translate(mouseX, mouseY);
+      scale(t/4);
+      image(sleeping, -50, -50, 100, 100);
+      popMatrix();
     }
     if (stamp1On == false && stamp2On == true){
-      image(smile, mouseX, mouseY, 100, 100);
+      pushMatrix();
+      translate(mouseX, mouseY);
+      scale(t/4);
+      image(LOL, -50, -50, 100, 100);
+      popMatrix();
     }
   }
   slider();
@@ -194,6 +208,7 @@ void mouseReleased(){
       stamp2On = !stamp2On;
     }
   }
+  slider();
   if (mouseX > 10 && mouseX < 85 && mouseY > 10 && mouseY < 135){
     canva();
   }
