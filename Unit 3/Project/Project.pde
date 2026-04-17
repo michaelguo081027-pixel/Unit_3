@@ -32,10 +32,12 @@ float t;
 
 void setup(){
   size(1200, 800);
+  
   surface.setTitle("Paint7XP");
   icon= loadImage("Icon.jpg");
   surface.setIcon(icon);
   background(grey);
+  
   sleeping = loadImage("Sleeping.png");
   lol = loadImage("LOL.png");
   newfile = loadImage("New.png");
@@ -43,14 +45,15 @@ void setup(){
   savefile = loadImage("Save.png");
   stamp1On = false;
   stamp2On = false;
-  selected=black;
-  x=490;
-  t=2;
+  selected = black;
+  x = 490;
+  t = 2;
+  
   canva();
 }
 
 void draw(){
-  //setup
+  //toolbar
   strokeWeight(5);
   stroke(black);
   fill(silver);
@@ -59,7 +62,7 @@ void draw(){
   textSize(20);
   text("File", 150, 190);
   text("Stamp Tool", 330, 190);
-  text("Thickness", 510, 190);
+  text("Thickness/Size", 490, 190);
   text("Colours", 900, 190);
   textSize(15);
   text("Please add file extensions for saving your work!", 10, 165);
@@ -68,42 +71,38 @@ void draw(){
   line(435, 5, 435, 195);
   line(675, 5, 675, 195);
   strokeWeight(5);
+  
   //colour
   tactile(850, 50, 25);
   fill(black);
   circle(850, 50, 50);
-  
   tactile(950, 50, 25);
   fill(red);
   circle(950, 50, 50);
-  
   tactile(1050, 50, 25);
   fill(lime);
   circle(1050, 50, 50);
-  
   tactile(1150, 50, 25);
   fill(blue);
   circle(1150, 50, 50);
-  
   tactile(850, 125, 25);
   fill(white);
   circle(850, 125, 50);
-  
   tactile(950, 125, 25);
   fill(yellow);
   circle(950, 125, 50);
-  
   tactile(1050, 125, 25);
   fill(magenta);
-  circle(1050, 125, 50);
-  
+  circle(1050, 125, 50); 
   tactile(1150, 125, 25);
   fill(cyan);
   circle(1150, 125, 50);
+  
   //indicator
   stroke(grey);
   fill(selected);
   square(700, 50, 75);
+  
   //slider
   stroke(black);
   line(450, 50, 650, 50);
@@ -112,6 +111,7 @@ void draw(){
   strokeWeight(t);
   line(500, 100, 600, 100);
   strokeWeight(5);
+  
   //buttons
   select(10, 10, 75, 125);
   strokeWeight(1);
@@ -130,6 +130,7 @@ void draw(){
   fill(black);
   text("Save As", 225, 110);
   image(savefile, 210, 10, 75, 75);
+  
   //stamp
   select(335, 10, 75, 75);
   onoff1();
@@ -193,7 +194,7 @@ void mouseReleased(){
   }
   slider();
   if (mouseX > 330 && mouseX < 405 && mouseY >10 && mouseY < 85){
-    if(stamp2On==false){
+    if(stamp2On == false){
       stamp1On = !stamp1On;
     } else{
       stamp1On = !stamp1On;
@@ -230,7 +231,7 @@ void tactile(int x, int y, int r){
 
 void slider() {
   if (mouseX > 450 && mouseX <650 && mouseY > 35 && mouseY < 65){
-    x=mouseX;
+    x = mouseX;
   }
   
   t = map(x, 450, 650, 0, 10);
@@ -245,7 +246,7 @@ void select(int x, int y, int w, int h){
 }
 
 void onoff1(){
-  if (stamp1On==true){
+  if (stamp1On == true){
     stroke(orange);
     strokeWeight(5);
   } else {
@@ -255,7 +256,7 @@ void onoff1(){
 }
 
 void onoff2(){
-  if (stamp2On==true){
+  if (stamp2On == true){
     stroke(orange);
     strokeWeight(5);
   } else {
@@ -271,9 +272,9 @@ void canva(){
 }
 
 void openImage(File f){
-  if(f !=null){
+  if(f != null){
     int n = 0;
-    while(n<10){
+    while(n < 10){
       PImage pic = loadImage(f.getPath());
       image(pic, 25, 225);
       n=n+1;
@@ -282,7 +283,7 @@ void openImage(File f){
 }
 
 void saveImage(File f){
-  if (f !=null){
+  if (f != null){
     PImage canva = get(25, 225, 1150, 550);
     canva.save(f.getAbsolutePath());
   }
